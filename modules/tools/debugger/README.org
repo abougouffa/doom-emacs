@@ -49,16 +49,10 @@ directory "node"~, then you need [[github:nodejs/node][nodejs]] ([[github:emacs-
 
 ** Realgud debuggers
 *** lldb and lldb-mi
-This is optional if you want to debug with [[https:lldb.llvm.org][LLDB]]. Install lldb and [[github:lldb-tools/lldb-mi][lldb-mi]].
+This is optional if you want to debug with [[https:lldb.llvm.org][LLDB]]. Install ~lldb~ and [[github:lldb-tools/lldb-mi][lldb-mi]].
 
 *** gdb
-This is optional if you want to debug with [[https:www.gnu.org/software/gdb/][GDB]]. Install gdb.
-
-You will need ~unzip~ for ~dap-gdb-lldb-setup~. It downloads a VS-Code extension
-and it needs to extract compressed downloaded file.
-
-You need this if you are having ~"wrong-type-argument stringp nil"~ error when
-calling ~dap-gdb-lldb-setup~. [[github:emacs-lsp/dap-mode/issues/313][See emacs-lsp/dap-mode#313]]
+This is optional if you want to debug with [[https:www.gnu.org/software/gdb/][GDB]]. Install ~gdb~.
 
 ** DAP debuggers
 *** Python
@@ -89,23 +83,17 @@ Needs [[https://github.com/llvm/llvm-project/tree/main/lldb/tools/lldb-vscode][l
 dnf install lldb
 #+end_src
 
+You will need ~unzip~ for ~dap-gdb-lldb-setup~. It downloads a VS-Code extension and
+it needs to extract compressed downloaded file.
+
+You need this if you are having ~"wrong-type-argument stringp nil"~ error when
+calling ~dap-gdb-lldb-setup~. [[github:emacs-lsp/dap-mode/issues/313][See emacs-lsp/dap-mode#313]]
+
 * TODO Usage
 #+begin_quote
  🔨 /This module's usage documentation is incomplete./ [[doom-contrib-module:][Complete it?]]
 #+end_quote
 
-- ~M-x +debugger/start~
-- ~M-x +debugger/start-last~
-- ~M-x +debugger/quit~
-  
-** Realgud
-1. Call ~dap-gdb-lldb-setup~ function.
-2. Use ~dap-debug-edit-template~ to configure debugging settings for your
-   project. [[github:WebFreak001/code-debug/blob/master/package.json#L72][Available settings can be inspected here.]] Call ~eval-buffer~ to save
-   your settings. *Don't save the file!*
-3. Call ~dap-debug~, select a configuration and start debugging.
-
-** dap-mode with ~+lsp~
 Intuitive and powerful debugging.
 
 - Breakpoints
@@ -114,7 +102,23 @@ Intuitive and powerful debugging.
   frame.
 - *expressions:* Add expressions to either watch variables or generic
   expressions.
+
+- ~M-x +debugger/start~
+- ~M-x +debugger/start-last~
+- ~M-x +debugger/quit~
   
+** Realgud
+1. Open a source file
+2. Call ~realgud:<debugger-name>~ to start your favorite debugger (for example,
+   you can use ~M-x realgud:pdb~ to launch the PDB Python debugger).
+
+** dap-mode with ~+lsp~
+1. Call ~dap-gdb-lldb-setup~ function.
+2. Use ~dap-debug-edit-template~ to configure debugging settings for your project.
+   [[github:WebFreak001/code-debug/blob/master/package.json#L72][Available settings can be inspected here.]] Call ~eval-buffer~ to save your
+   settings. *Don't save the file!*
+3. Call ~dap-debug~, select a configuration and start debugging.
+
 ** Keybindings
 #+begin_src emacs-lisp
 (map! :map dap-mode-map
